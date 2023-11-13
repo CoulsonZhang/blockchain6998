@@ -6,6 +6,23 @@
 
 pragma solidity ^0.8.9;
 
-contract BlockSign {
+contract ContractGuard {
+    struct Contract {
+        address[] stakeholders;
+        bytes32 contentHash;
+    }
+    mapping(uint => Contract) public contracts;
+    uint public count;
     
+    function addContract(address[] calldata stakeholders, bytes32[] calldata content) external returns (uint){
+        bytes32 contentHash = keccak256(abi.encodePacked(content));
+        count += 1;
+        uint id = count;
+        contracts[id] = Contract(stakeholders, contentHash);
+        return id;
+    }
+    function verify(uint id, bytes32[] calldata content) external view returns (bool){
+        bytes32 contentHash = keccak256(abi.encodePacked(content));
+        return contentHash == contracts[id].contentHash;
+    }
 }
