@@ -1,0 +1,21 @@
+Title: SmartContractGuard: Securing Digital Contracts on Web3
+Details:
+Team Members: Lei Xu (lx2301), Weiran Wang(ww2584), Coulson Zhang(zz2980)
+Pain Points Addressed:
+Contract Tampering: Traditional digital contracts are susceptible to unauthorized modifications or disputes, leading to costly legal battles.
+Data Vulnerability: Storing contract data in centralized systems exposes sensitive information to potential breaches.
+Lack of Transparency: Lack of transparency in contract execution and modifications can erode trust among parties involved.
+Inefficient Processes: Traditional contract management involves manual verification and payment transfers, resulting in delays and errors.
+How SmartContractGuard Addresses the Pain Points:
+Immutable Contracts: SmartContractGuard leverages Web3 technology to store digital contracts on a blockchain, ensuring they are tamper-proof and immutable. Once a contract is deployed, it cannot be altered without unanimous consent.
+Secure Data Storage: Contract data is securely stored on the decentralized blockchain, reducing the risk of data breaches. Off-chain data storage can be used for larger documents while ensuring data integrity.
+Transparency and Trust: SmartContractGuard provides a transparent ledger of contract actions, approvals, and modifications, enhancing trust among contract parties. All parties can verify the contract's status at any time.
+Efficiency: By automating contract execution and approval processes through smart contracts, SmartContractGuard streamlines contract management, reducing delays and errors. When predefined requirements are met, blockchain contracts will automatically execute terms. Hence, SmartContractGuard will reduce human involvement. 
+Why Web3 is the Best Solution:
+Trustless Environment: Web3 and blockchain technologies provide a trustless environment where contracts are executed based on predefined rules without intermediaries. This reduces the need for trust between parties.
+Immutable Ledger: Blockchain's immutability ensures that once a contract is recorded, it cannot be changed, providing a secure and transparent audit trail.
+Decentralization: Web3's decentralized nature eliminates single points of failure and reduces the risk of censorship or data manipulation.
+Global Accessibility: Web3 is accessible globally, making it suitable for cross-border contracts without the need for complex legal procedures.
+What Makes SmartContractGuard Unique:
+Unanimous Consent: Unlike some existing solutions that may allow modifications with majority approval, SmartContractGuard requires unanimous consent for contract changes, ensuring the highest level of security.
+Hybrid Data Storage: SmartContractGuard offers a hybrid approach to data storage, combining on-chain and off-chain solutions, optimizing for both security and efficiency.
