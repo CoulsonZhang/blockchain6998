@@ -8,20 +8,26 @@ pragma solidity ^0.8.9;
 
 contract ContractGuard {
     struct Contract {
-        address[] stakeholders;
+        address user1;
+        address user2;
+        bytes32 name1;
+        bytes32 name2;
+        uint credit;
         bytes32 contentHash;
     }
     mapping(uint => Contract) public contracts;
     uint public count;
-    
-    function addContract(address[] calldata stakeholders, bytes32[] calldata content) external returns (uint){
+
+    event AddContract(uint id, address user1, address user2, bytes32 contentHash);
+    function addContract(address user1, address user2, bytes32 name1, bytes32 name2, uint credit,  bytes32 content) external returns (uint){
         bytes32 contentHash = keccak256(abi.encodePacked(content));
         count += 1;
         uint id = count;
-        contracts[id] = Contract(stakeholders, contentHash);
+        contracts[id] = Contract(user1,user2,name1,name2,credit,contentHash);
+        emit AddContract(id, user1, user2, contentHash);
         return id;
     }
-    function verify(uint id, bytes32[] calldata content) external view returns (bool){
+    function verify(uint id, bytes32 content) external view returns (bool){
         bytes32 contentHash = keccak256(abi.encodePacked(content));
         return contentHash == contracts[id].contentHash;
     }
