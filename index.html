@@ -7,19 +7,14 @@
     <script src="./abi-decoder.js"></script>
   </head>
   <body>
-  	<h1>Blockchain Splitwise</h1>
-    <div class="panel panel_right">
-		<h2>My Account</h2>
-		<select id="myaccount" class="account"></select>
-		<p>Total Owed: <span id="total_owed"></span></p>
-		<p>Last Activity: <span id="last_active"></span></p>
-	</div>
+  	<h1>Contract Guard</h1>
+    
 	<div class="wallet_addresses_panel">
 		<h2>Wallet Addresses</h2>
 		<ol class="wallet_addresses"></ol>
 	</div>
     <div class="main">
-      <h2>Add IOU</h2>
+      <h2>Add Contract</h2>
 
       <label for="creditor">
       	Address of person you owe:
@@ -29,12 +24,22 @@
       <label for="amount">
       	Amount you owe them:
       </label>
-		<input id="amount" type="text">
+      <input id="amount" type="text">
+      <label for = "user1" >
+        User name 1 
+      </label>
+      <input id="username1" type="text">
+
+      <label for = "user2" >
+          User name 2
+      </label>
+      <input id="username2" type="text">
+      <label for = "contract content" >
+          Content Summary
+      </label>
+      <input id="contentSummary" type="text">
       
-      <button id="addiou">Add IOU</button>
-      <h2>Users</h2>
-      <ul id="all_users"></ul>
-      <pre id="log"></pre>
+      <button id="addcontract">Add Contract</button>
     </div>
     
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
