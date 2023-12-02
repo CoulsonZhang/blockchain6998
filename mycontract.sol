@@ -10,8 +10,8 @@ contract ContractGuard {
     struct Contract {
         address user1;
         address user2;
-        bytes32 name1;
-        bytes32 name2;
+        string name1;
+        string name2;
         uint credit;
         bytes32 contentHash;
     }
@@ -19,7 +19,7 @@ contract ContractGuard {
     uint public count;
 
     event AddContract(uint id, address user1, address user2, bytes32 contentHash);
-    function addContract(address user1, address user2, bytes32 name1, bytes32 name2, uint credit,  bytes32 content) external returns (uint){
+    function addContract(address user1, address user2, string memory name1, string memory name2, uint credit,  string memory content) external returns (uint){
         bytes32 contentHash = keccak256(abi.encodePacked(content));
         count += 1;
         uint id = count;
@@ -27,7 +27,7 @@ contract ContractGuard {
         emit AddContract(id, user1, user2, contentHash);
         return id;
     }
-    function verify(uint id, bytes32 content) external view returns (bool){
+    function verify(uint id, string memory content) external view returns (bool){
         bytes32 contentHash = keccak256(abi.encodePacked(content));
         return contentHash == contracts[id].contentHash;
     }
