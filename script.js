@@ -11,6 +11,37 @@ var GENESIS = '0x000000000000000000000000000000000000000000000000000000000000000
 // ============================================================
 var abi = [
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "user1",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "user2",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes32",
+				"name": "contentHash",
+				"type": "bytes32"
+			}
+		],
+		"name": "AddContract",
+		"type": "event"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -53,37 +84,6 @@ var abi = [
 		],
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "user1",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "user2",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "contentHash",
-				"type": "bytes32"
-			}
-		],
-		"name": "AddContract",
-		"type": "event"
 	},
 	{
 		"inputs": [
@@ -172,7 +172,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0x07506C4EBb8d9594ae9E1cA83a9c4eA8932C6Dcf'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0x3b163f90777Bd8468b74F364f8a5336feB7E682E'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an IOU ('I owe you') to the system
