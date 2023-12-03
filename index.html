@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+  <style>
+    body{background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);}
+    /* .button{background-color: #04AA6D;} */
+  </style>
   <head>
     <title>Web3.js Demo</title>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -46,6 +50,19 @@
       
       <button id="addcontract">Add Contract</button>
       <p>The id of the last contract that you uploaded:<span id="id"></span></p>
+      <br>
+      <div class = "verify">
+          <label for = "contractid" >
+              Contract ID
+          </label>
+          <input id="contractid" type="text">
+      
+          <label for = "verifyContent" >
+            Content needed to be verified
+          </label>
+          <input id="verifyContent" type="text">
+          <button id="verifyContract">Verify Contract</button>
+      </div>
     </div>
     
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
