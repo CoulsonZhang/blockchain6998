@@ -11,37 +11,6 @@ var GENESIS = '0x000000000000000000000000000000000000000000000000000000000000000
 // ============================================================
 var abi = [
 	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "user1",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "user2",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "contentHash",
-				"type": "bytes32"
-			}
-		],
-		"name": "AddContract",
-		"type": "event"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -84,6 +53,37 @@ var abi = [
 		],
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "user1",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "user2",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes32",
+				"name": "contentHash",
+				"type": "bytes32"
+			}
+		],
+		"name": "AddContract",
+		"type": "event"
 	},
 	{
 		"inputs": [
@@ -172,7 +172,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0xAA3AD474AcedbAF70286FDc4411dbcFfEc59ceCD'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0x07506C4EBb8d9594ae9E1cA83a9c4eA8932C6Dcf'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an IOU ('I owe you') to the system
@@ -184,6 +184,11 @@ async function add_Contract(user1add, user2add, name1, name2, credit, content) {
 		{from: user1add, gas: 3000000}
 	)
 
+}
+
+async function getId(){
+    id = await ContractGuard.methods.count().call();
+    return id;
 }
 
 async function getAllContractData(){
@@ -250,7 +255,14 @@ console.log(getAllContractData());
 $("#addcontract").click(function() {
 	// web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
     add_Contract($("#user1add").val(), $("#user2add").val(), $("#username1").val(), $("#username2").val(), $("#credit").val(), $("#contentSummary").val()).then((response)=>{
-		window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
+        console.log(response);
+        window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
+        $("#id").html(response)
 	})
 });
+
+getId().then((response)=>{
+        $("#id").html(response)
+    })
+;
 
