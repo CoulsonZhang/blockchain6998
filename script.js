@@ -172,7 +172,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0xE366e08788AC20FBd047FEEd0ce94E3bCF5D90c1'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0xBc85b9dDBfB041D19C8e8d46cf24bfD58d233485'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an contract to the system
@@ -314,7 +314,7 @@ window.onload = async function() {
     // Create nodes array with the required format
     const cnodes = contractData.nodes.map((node, index) => ({
         name: node.name,
-        group: index, // Assign a default group or calculate based on your needs
+        group: 10+index, // Assign a default group or calculate based on your needs
         id: node.address // The index of the node in the array
     }));
 
@@ -332,21 +332,31 @@ window.onload = async function() {
 	const nodes = cnodes;
 	const links = clinks;
 
-	// const nodes = [
-	// 	{ "name": "Myriel",             "group":  1 , id: 0},
-	// 	{ "name": "Napoleon",           "group":  2 , id: 1},
-	// 	{ "name": "Mlle.Baptistine",    "group":  3 , id: 2},
-	// 	{ "name": "Mme.Magloire",       "group":  4 , id: 3},
-	// 	{ "name": "CountessdeLo",       "group":  5 , id: 4},
-	// 	{ "name": "Geborand",           "group":  6 , id: 5},
-	// 	{ "name": "Champtercier",       "group":  7 , id: 6},
-	// 	{ "name": "Cravatte",           "group":  8 , id: 7},
-	// 	{ "name": "Count",              "group":  9 , id: 8}
-	// ];
+	nodes.push({ "name": "Columbia", "group": 1, "id": 1 });
+	nodes.push({ "name": "Weiran", "group": 2, "id": 2 });
+	nodes.push({ "name": "Xulei", "group": 3, "id": 3 });
+	nodes.push({ "name": "Junfeng", "group": 4, "id": 4 });
+	nodes.push({ "name": "Sallay", "group": 5, "id": 5 });
+	nodes.push({ "name": "Coulson", "group": 6, "id": 6 });
+	nodes.push({ "name": "Web3", "group": 7, "id": 6 });
+	nodes.push({ "name": "Big-Data", "group": 8, "id": 6 });
+	nodes.push({ "name": "Web3 Student", "group": 9, "id": 6 });
+	nodes.push({ "name": "CVN Student", "group": 10, "id": 6 });
 
-	// 	const links = [
-	// 	{ "source":  1,  "target":  0,  "value":  1 }
-	// ];
+	links.push({ "source": "Columbia", "target": "Weiran", "value": 2 });
+	links.push({ "source": "Columbia", "target": "Xulei", "value": 2 });
+	links.push({ "source": "Columbia", "target": "Junfeng", "value": 2 });
+	links.push({ "source": "Columbia", "target": "Sallay", "value": 2 });
+	links.push({ "source": "Columbia", "target": "Coulson", "value": 2 });
+
+	links.push({ "source": "Weiran", "target": "Coulson", "value": 2 });
+	links.push({ "source": "Weiran", "target": "Xulei", "value": 2 });
+	links.push({ "source": "Coulson", "target": "Xulei", "value": 2 });
+
+	links.push({ "source": "Web3", "target": "Big-Data", "value": 2 });
+	links.push({ "source": "Columbia", "target": "Web3 Student", "value": 2 });
+	links.push({ "source": "Big-Data", "target": "CVN Student", "value": 2 });
+
 
 
 		var fisheye = d3.fisheye.circular()
