@@ -172,7 +172,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0xCABEdb1CaFAe0f6f1c31Feb111bf5e6f03372EFc'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0x7BE80ED129745dCecae6635FBC157D61F2718dB8'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an contract to the system
@@ -269,7 +269,7 @@ $("#addcontract").click(function() {
     add_Contract($("#user1add").val(), $("#user2add").val(), $("#username1").val(), $("#username2").val(), $("#credit").val(), $("#contentSummary").val()).then((response)=>{
         // console.log(response);
         window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
-        $("#id").html(response)
+        // $("#id").html(response)
 	})
 });
 
@@ -282,21 +282,18 @@ getId().then((response)=>{
 // It passes the values from inputs
 $("#verifyContract").click(function() {
 	// web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
-    let result = verify($("#contractid").val(), $("#verifyContent").val()).then((response)=>{
-        // console.log(response);
-		// window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
+    verify($("#contractid").val(), $("#verifyContent").val()).then((response)=>{
+        console.log(response);
+        // window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
+        // $("#id").html(response)
 		if (response == true) {
-			window.alert('contract verified!');
-		  } else {
-			window.alert('Error: cannot verify contract');
-		  }
-		window.location.reload(true); 
-        $("#id").html(response)
+			$("#verifyResult").text("The content is verified to be true!");
+		}else{
+			$("#verifyResult").text("The content is verified to be false!");
+		}
 	})
-	
-	// console.log(result)
-});
 
+});
 
 window.onload = async function() {
 	const contractData = await getAllContractData();
