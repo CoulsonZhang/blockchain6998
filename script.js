@@ -172,7 +172,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0x7BE80ED129745dCecae6635FBC157D61F2718dB8'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0xE366e08788AC20FBd047FEEd0ce94E3bCF5D90c1'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an contract to the system
@@ -277,6 +277,13 @@ $("#addcontract").click(function() {
 getId().then((response)=>{
         $("#id").html(response)
 	});
+
+web3.eth.getAccounts().then((response)=>{
+	var opts = response.map(function (a) { return '<option value="'+
+			a.toLowerCase()+'">'+a.toLowerCase()+'</option>' });
+	$(".account").html(opts);
+	$(".wallet_addresses").html(response.map(function (a) { return '<li>'+a.toLowerCase()+'</li>' }));
+});
 
 // This runs "verify" function when you click the button
 // It passes the values from inputs
