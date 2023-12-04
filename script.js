@@ -172,7 +172,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0xBc85b9dDBfB041D19C8e8d46cf24bfD58d233485'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0x66431127755F93b950e93B6Cd3b3a86a1A8edd09'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an contract to the system
@@ -345,8 +345,8 @@ window.onload = async function() {
 
 	links.push({ "source": "Columbia", "target": "Weiran", "value": 2 });
 	links.push({ "source": "Columbia", "target": "Xulei", "value": 2 });
-	links.push({ "source": "Columbia", "target": "Junfeng", "value": 2 });
-	links.push({ "source": "Columbia", "target": "Sallay", "value": 2 });
+	links.push({ "source": "Columbia", "target": "Junfeng", "value": 20 });
+	links.push({ "source": "Columbia", "target": "Sallay", "value": 10 });
 	links.push({ "source": "Columbia", "target": "Coulson", "value": 2 });
 
 	links.push({ "source": "Weiran", "target": "Coulson", "value": 2 });
