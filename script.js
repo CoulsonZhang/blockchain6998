@@ -267,7 +267,7 @@ async function getAllFunctionCalls(addressOfContract, functionName) {
 $("#addcontract").click(function() {
 	// web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
     add_Contract($("#user1add").val(), $("#user2add").val(), $("#username1").val(), $("#username2").val(), $("#credit").val(), $("#contentSummary").val()).then((response)=>{
-        console.log(response);
+        // console.log(response);
         window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
         $("#id").html(response)
 	})
@@ -283,11 +283,18 @@ getId().then((response)=>{
 $("#verifyContract").click(function() {
 	// web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
     let result = verify($("#contractid").val(), $("#verifyContent").val()).then((response)=>{
-        console.log(response);
-        // window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
+        // console.log(response);
+		// window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
+		if (response == true) {
+			window.alert('contract verified!');
+		  } else {
+			window.alert('Error: cannot verify contract');
+		  }
+		window.location.reload(true); 
         $("#id").html(response)
 	})
-	console.log(result)
+	
+	// console.log(result)
 });
 
 
