@@ -314,7 +314,7 @@ window.onload = async function() {
     // Create nodes array with the required format
     const cnodes = contractData.nodes.map((node, index) => ({
         name: node.name,
-        group: 10+index, // Assign a default group or calculate based on your needs
+        group: 11+index, // Assign a default group or calculate based on your needs
         id: node.address // The index of the node in the array
     }));
 
@@ -409,7 +409,7 @@ window.onload = async function() {
 		// Define a color scale for the nodes
 		function colorByGroup(d) {
 			// Set the domain to cover all groups from 1 to 2 (adjust if you have more groups)
-			const scale = d3.scaleOrdinal(d3.schemeCategory10).domain([0, 1, 2,3,4,5,6,7,8,9,10]);
+			const scale = d3.scaleOrdinal(d3.schemeCategory10).domain([0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
 			console.log('Group:', d.group, 'Color:', scale(d.group)); // Debug statement
 			return scale(d.group);
 		}
