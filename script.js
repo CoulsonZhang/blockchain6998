@@ -172,18 +172,28 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0xc91578d0FbfA112Dd888962Da13e6cB4779339BF'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0xCABEdb1CaFAe0f6f1c31Feb111bf5e6f03372EFc'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
-// TODO: add an IOU ('I owe you') to the system
-// The person you owe money is passed as 'creditor'
-// The amount you owe them is passed as 'amount'
+// TODO: add an contract to the system
+web3.eth.getAccounts().then((response)=> {
+	web3.eth.defaultAccount = response[0];
+});
+
 async function add_Contract(user1add, user2add, name1, name2, credit, content) {
 
 	await ContractGuard.methods.addContract(user1add, user2add, name1, name2, credit, content).send(
 		{from: user1add, gas: 3000000}
 	)
 
+}
+
+async function verify(id, content) {
+
+	result = await ContractGuard.methods.verify(id, content).send(
+		{from: web3.eth.defaultAccount, gas: 3000000}
+	)
+	return result;
 }
 
 async function getId(){
@@ -252,8 +262,8 @@ async function getAllFunctionCalls(addressOfContract, functionName) {
 // console.log(getAllContractData());
 
 // UI
-// This runs the 'add_IOU' function when you click the button
-// It passes the values from the two inputs above
+// This runs the 'add_Contract' function when you click the button
+// It passes the values from the inputs above
 $("#addcontract").click(function() {
 	// web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
     add_Contract($("#user1add").val(), $("#user2add").val(), $("#username1").val(), $("#username2").val(), $("#credit").val(), $("#contentSummary").val()).then((response)=>{
@@ -263,9 +273,22 @@ $("#addcontract").click(function() {
 	})
 });
 
+// This gets id of contract
 getId().then((response)=>{
         $("#id").html(response)
-    });
+	});
+
+// This runs "verify" function when you click the button
+// It passes the values from inputs
+$("#verifyContract").click(function() {
+	// web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
+    let result = verify($("#contractid").val(), $("#verifyContent").val()).then((response)=>{
+        console.log(response);
+        // window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
+        $("#id").html(response)
+	})
+	console.log(result)
+});
 
 
 window.onload = async function() {
