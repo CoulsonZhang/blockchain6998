@@ -190,7 +190,7 @@ async function add_Contract(user1add, user2add, name1, name2, credit, content) {
 
 async function verify(id, content) {
 
-	result = await ContractGuard.methods.verify(id, content).send(
+	result = await ContractGuard.methods.verify(id, content).call(
 		{from: web3.eth.defaultAccount, gas: 3000000}
 	)
 	return result;
