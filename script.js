@@ -172,7 +172,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0x66431127755F93b950e93B6Cd3b3a86a1A8edd09'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0x8f794702892209CeBad7a46C049450C9A37102Ad'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an contract to the system
@@ -266,12 +266,26 @@ async function getAllFunctionCalls(addressOfContract, functionName) {
 // It passes the values from the inputs above
 $("#addcontract").click(function() {
 	// web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
-    add_Contract($("#user1add").val(), $("#user2add").val(), $("#username1").val(), $("#username2").val(), $("#credit").val(), $("#contentSummary").val()).then((response)=>{
-        // console.log(response);
-        window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
-        // $("#id").html(response)
-	})
+	var fileInput = document.getElementById('contentSummary');
+	var file = fileInput.files[0];
+	if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var contents = e.target.result;
+            var hash = sha256(contents); 
+
+            add_Contract($("#user1add").val(), $("#user2add").val(), $("#username1").val(), $("#username2").val(), $("#credit").val(), hash).then((response) => {
+                window.location.reload(true);
+            });
+        };
+		reader.readAsText(file);
+    }
 });
+
+function sha256(str) {
+    return CryptoJS.SHA256(str).toString();
+}
 
 // This gets id of contract
 getId().then((response)=>{
@@ -289,16 +303,27 @@ web3.eth.getAccounts().then((response)=>{
 // It passes the values from inputs
 $("#verifyContract").click(function() {
 	// web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
-    verify($("#contractid").val(), $("#verifyContent").val()).then((response)=>{
-        console.log(response);
-        // window.location.reload(true); // refreshes the page after add_Contract returns and the promise is unwrapped
-        // $("#id").html(response)
-		if (response == true) {
-			$("#verifyResult").text("The content is verified to be true!");
-		}else{
-			$("#verifyResult").text("The content is verified to be false!");
-		}
-	})
+	var fileInput = document.getElementById('verifyContent');
+    var file = fileInput.files[0];
+	if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var fileContents = e.target.result;
+			var hash = sha256(fileContents);
+
+            verify($("#contractid").val(), hash).then((response) => {
+                console.log(response);
+                // Display the verification result
+                if (response == true) {
+                    $("#verifyResult").text("The content is verified to be true!");
+                } else {
+                    $("#verifyResult").text("The content is verified to be false!");
+                }
+            });
+        };
+		reader.readAsText(file);
+    }
 
 });
 

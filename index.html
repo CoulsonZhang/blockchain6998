@@ -70,7 +70,7 @@
         Contract Content
       </label>
       
-      <input id="contentSummary" type="text">
+      <input id="contentSummary" type="file">
       
       <button id="addcontract">Add Contract</button>
       <p>The id of the last contract that you uploaded:<span id="id"></span></p>
@@ -84,7 +84,7 @@
           <label for = "verifyContent" >
             Content needed to be verified
           </label>
-          <input id="verifyContent" type="text">
+          <input id="verifyContent" type="file">
           <button id="verifyContract">Verify Contract</button>
           <p><span id="verifyResult"></span></p>
       </div>
@@ -114,5 +114,6 @@
     <script src="./script.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="fisheye.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
   </body>
 </html>
