@@ -336,7 +336,7 @@ window.onload = async function() {
 	nodes.push({ "name": "Weiran", "group": 2, "id": 2 });
 	nodes.push({ "name": "Xulei", "group": 3, "id": 3 });
 	nodes.push({ "name": "Junfeng", "group": 4, "id": 4 });
-	nodes.push({ "name": "Sallay", "group": 5, "id": 5 });
+	nodes.push({ "name": "Sally", "group": 5, "id": 5 });
 	nodes.push({ "name": "Coulson", "group": 6, "id": 6 });
 	nodes.push({ "name": "Web3", "group": 7, "id": 6 });
 	nodes.push({ "name": "Big-Data", "group": 8, "id": 6 });
@@ -346,7 +346,7 @@ window.onload = async function() {
 	links.push({ "source": "Columbia", "target": "Weiran", "value": 2 });
 	links.push({ "source": "Columbia", "target": "Xulei", "value": 2 });
 	links.push({ "source": "Columbia", "target": "Junfeng", "value": 20 });
-	links.push({ "source": "Columbia", "target": "Sallay", "value": 10 });
+	links.push({ "source": "Columbia", "target": "Sally", "value": 10 });
 	links.push({ "source": "Columbia", "target": "Coulson", "value": 2 });
 
 	links.push({ "source": "Weiran", "target": "Coulson", "value": 2 });
