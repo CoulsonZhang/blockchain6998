@@ -27,6 +27,14 @@ contract ContractGuard {
         emit AddContract(id, user1, user2, contentHash);
         return id;
     }
+    event EditContract(uint id, bytes32 contentHash);
+    function editContract(uint id, string memory content) external {
+        Contract storage c = contracts[id];
+        require(msg.sender == c.user1 || msg.sender == c.user2);
+        bytes32 contentHash = keccak256(abi.encodePacked(content));
+        c.contentHash = contentHash;
+        emit EditContract(id, contentHash);
+    }
     function verify(uint id, string memory content) external view returns (bool){
         bytes32 contentHash = keccak256(abi.encodePacked(content));
         return contentHash == contracts[id].contentHash;

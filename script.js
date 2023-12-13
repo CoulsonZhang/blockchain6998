@@ -42,6 +42,25 @@ var abi = [
 		"type": "event"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes32",
+				"name": "contentHash",
+				"type": "bytes32"
+			}
+		],
+		"name": "EditContract",
+		"type": "event"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -155,6 +174,24 @@ var abi = [
 				"type": "string"
 			}
 		],
+		"name": "editContract",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "content",
+				"type": "string"
+			}
+		],
 		"name": "verify",
 		"outputs": [
 			{
@@ -172,7 +209,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0x8f794702892209CeBad7a46C049450C9A37102Ad'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0xf935b2293D73DFcAc2Fe106C7701ED75b588A3d3'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an contract to the system
@@ -186,6 +223,12 @@ async function add_Contract(user1add, user2add, name1, name2, credit, content) {
 		{from: user1add, gas: 3000000}
 	)
 
+}
+
+async function edit_Contract(id, content){
+	await ContractGuard.methods.editContract(id,content).send(
+		{from: web3.eth.defaultAccount, gas: 3000000}
+	)
 }
 
 async function verify(id, content) {
@@ -282,6 +325,12 @@ $("#addcontract").click(function() {
 		reader.readAsText(file);
     }
 });
+
+$("reviseContract").click(function(){
+	add_Contract($("#contractid").val(), $("#reviseContent").val()).then((response) => {
+		window.location.reload(true);
+	});
+})
 
 function sha256(str) {
     return CryptoJS.SHA256(str).toString();
