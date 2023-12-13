@@ -303,8 +303,17 @@ async function getAllFunctionCalls(addressOfContract, functionName) {
 }
 
 // console.log(getAllContractData());
+$("#myaccount").change(function() {
+	web3.eth.defaultAccount = $(this).val();
 
+});
 // UI
+web3.eth.getAccounts().then((response)=>{
+	var opts = response.map(function (a) { return '<option value="'+
+			a.toLowerCase()+'">'+a.toLowerCase()+'</option>' });
+	$(".account").html(opts);
+	$(".wallet_addresses").html(response.map(function (a) { return '<li>'+a.toLowerCase()+'</li>' }));
+});
 // This runs the 'add_Contract' function when you click the button
 // It passes the values from the inputs above
 $("#addcontract").click(function() {
@@ -327,7 +336,11 @@ $("#addcontract").click(function() {
 });
 
 $("reviseContract").click(function(){
-	add_Contract($("#contractid").val(), $("#reviseContent").val()).then((response) => {
+	console.log("111")
+	web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
+	var hash = sha256(document.getElementById('reviseContent')); 
+
+	edit_Contract($("#revisecontractid").val(), hash).then((response) => {
 		window.location.reload(true);
 	});
 })
