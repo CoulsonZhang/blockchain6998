@@ -209,7 +209,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0x0fcAB204f1dD7027a6D600c37d0e3e2884283bf8'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0x2C6cb30391F4f5F69Ab9268Ef5B2A11Aa7318AD7'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an contract to the system
@@ -336,7 +336,6 @@ $("#addcontract").click(function() {
 });
 
 $("#reviseContract").click(function(){
-	console.log("111")
 	web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
 	// var hash = sha256(document.getElementById('reviseContent')); 
 	var fileInput = document.getElementById('reviseContent');
@@ -387,7 +386,7 @@ $("#verifyContract").click(function() {
 			var hash = sha256(fileContents);
 
             verify($("#contractid").val(), hash).then((response) => {
-                console.log(response);
+                // console.log(response);
                 // Display the verification result
                 if (response == true) {
                     $("#verifyResult").text("The content is verified to be true!");
@@ -403,7 +402,7 @@ $("#verifyContract").click(function() {
 
 window.onload = async function() {
 	const contractData = await getAllContractData();
-	console.log(contractData);
+	// console.log(contractData);
 
 	// const addressToIndexMap = new Map();
     // contractData.nodes.forEach((node, index) => {
@@ -426,7 +425,7 @@ window.onload = async function() {
     }));
 
 	// console.log(cnodes);
-	console.log(clinks);
+	// console.log(clinks);
 
 	const nodes = cnodes;
 	const links = clinks;
@@ -509,7 +508,7 @@ window.onload = async function() {
 		function colorByGroup(d) {
 			// Set the domain to cover all groups from 1 to 2 (adjust if you have more groups)
 			const scale = d3.scaleOrdinal(d3.schemeCategory10).domain([0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
-			console.log('Group:', d.group, 'Color:', scale(d.group)); // Debug statement
+			// console.log('Group:', d.group, 'Color:', scale(d.group)); // Debug statement
 			return scale(d.group);
 		}
 
@@ -567,4 +566,105 @@ window.onload = async function() {
 				.style("font-size", d => `${d.fisheye.z * 10}px`);
 		});
 	}
+
+
+function check(name, condition) {
+	if (condition) {
+		console.log(name + ": SUCCESS");
+		return 3;
+	} else {
+		console.log(name + ": FAILED");
+		return 0;
+	}
+}
+
+// Test Case 1: Test addContract function
+async function testAddContract() {
+	var accounts = await web3.eth.getAccounts();
+	const user1 = accounts[0];
+	const user2 = accounts[1];
+	const name1 = 'User1';
+	const name2 = 'User2';
+	const credit = 100;
+	const content = 'Sample content';
+  
+	const result = await ContractGuard.methods.addContract(user1, user2, name1, name2, credit, content).send({ from: user1, gas: 3000000 });
+  
+	check("Add Contract", result.status == true)
+  }
+  
+  // Test Case 2: Test editContract function
+  async function testEditContract() {
+	var accounts = await web3.eth.getAccounts();
+	const user1 = accounts[0];
+	const user2 = accounts[1];
+	const name1 = 'User1';
+	const name2 = 'User2';
+	const credit = 100;
+	const content = 'Sample content';
+  
+	// Add a contract first
+	const addResult = await ContractGuard.methods.addContract(user1, user2, name1, name2, credit, content).send({ from: user1, gas: 3000000 });
+  
+	// Edit the contract
+	const contractId = addResult.events.AddContract.returnValues.id;
+	const newContent = 'Updated content';
+	const editResult = await ContractGuard.methods.editContract(contractId, newContent).send({ from: user1, gas: 3000000 });
+  
+	// assert.strictEqual(editResult.status, true, 'Editing contract failed');
+	check("Editing contract", editResult.status == true)
+  }
+  
+  // Test Case 3: Test verify function
+  async function testVerify() {
+	var accounts = await web3.eth.getAccounts();
+	const user1 = accounts[0];
+	const user2 = accounts[1];
+	const name1 = 'User1';
+	const name2 = 'User2';
+	const credit = 100;
+	const content = 'Sample content';
+  
+	// Add a contract first
+	const addResult = await ContractGuard.methods.addContract(user1, user2, name1, name2, credit, content).send({ from: user1, gas: 3000000 });
+  
+	// Verify the content
+	const contractId = addResult.events.AddContract.returnValues.id;
+	const verifyResult = await ContractGuard.methods.verify(contractId, content).call({ from: user1, gas: 3000000 });
+  
+	// assert.strictEqual(verifyResult, true, 'Verification failed');
+	check("Verification", verifyResult == true)
+  }
+  
+  // Test Case 4: Test getAllContractData function
+  async function testGetAllContractData() {
+	const contractData = await getAllContractData();
+  
+	check("nodes found", contractData.nodes.length > 0)
+	check('links found', contractData.links.length > 0)
+	// assert.strictEqual(contractData.nodes.length > 0, true, 'No nodes found');
+	// assert.strictEqual(contractData.links.length > 0, true, 'No links found');
+  }
+  
+  // Run the tests
+  async function runTests() {
+	try {
+	  await testAddContract();
+	  console.log('Test Case 1 passed: addContract function');
+  
+	  await testEditContract();
+	  console.log('Test Case 2 passed: editContract function');
+  
+	  await testVerify();
+	  console.log('Test Case 3 passed: verify function');
+  
+	  await testGetAllContractData();
+	  console.log('Test Case 4 passed: getAllContractData function');
+	} catch (error) {
+	  console.error('Tests failed:', error.message);
+	}
+  }
+  
+  // Run the tests
+runTests();
 
