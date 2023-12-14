@@ -23,7 +23,10 @@ Contract Guard offers the user the document sign system within the web3 environm
 3. Click the button "Revise Contract" to submit the contract updates
 
 ## Visualization
-1. The signed contract will be presented with a force-directed graph implemented by js with a fish-eye effect. Each node within the graph presents a user who has signed a contract using Contract Guard. Each line within the graph presents a contract signed between two users. The higher the credit given to the contract, the thicker line the corresponding line would be.
+The signed contract will be presented with a force-directed graph implemented by js with a fish-eye effect. Each node within the graph presents a user who has signed a contract using Contract Guard. Each line within the graph presents a contract signed between two users. The higher the credit given to the contract, the thicker line the corresponding line would be.
+
+## Test
+Sanity check implemented within script.js and will run automatically.
 
 
 ## Team
