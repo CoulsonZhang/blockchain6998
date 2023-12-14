@@ -209,7 +209,7 @@ var abi = [
 abiDecoder.addABI(abi);
 // call abiDecoder.decodeMethod to use this - see 'getAllFunctionCalls' for more
 
-var contractAddress = '0xf935b2293D73DFcAc2Fe106C7701ED75b588A3d3'; // FIXME: fill this in with your contract's address/hash
+var contractAddress = '0x0fcAB204f1dD7027a6D600c37d0e3e2884283bf8'; // FIXME: fill this in with your contract's address/hash
 var ContractGuard = new web3.eth.Contract(abi, contractAddress);
 
 // TODO: add an contract to the system
@@ -335,14 +335,26 @@ $("#addcontract").click(function() {
     }
 });
 
-$("reviseContract").click(function(){
+$("#reviseContract").click(function(){
 	console.log("111")
 	web3.eth.defaultAccount = $("#myaccount").val(); //sets the default account
-	var hash = sha256(document.getElementById('reviseContent')); 
+	// var hash = sha256(document.getElementById('reviseContent')); 
+	var fileInput = document.getElementById('reviseContent');
+	var file = fileInput.files[0];
+	if (file) {
+        var reader = new FileReader();
 
-	edit_Contract($("#revisecontractid").val(), hash).then((response) => {
-		window.location.reload(true);
-	});
+        reader.onload = function(e) {
+            var contents = e.target.result;
+            var hash = sha256(contents); 
+
+            edit_Contract($("#revisecontractid").val(), hash).then((response) => {
+				window.location.reload(true);
+			});
+        };
+		reader.readAsText(file);
+    }
+	
 })
 
 function sha256(str) {
